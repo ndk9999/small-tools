@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AicCourseRegister": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Users\\Phuc Nguyen\\Downloads\\Spreadsheets\\hoc_vien.csv\""
+    }
+  }
+}
