@@ -3,13 +3,17 @@ using AicCourseRegister;
 using CsvHelper;
 using Microsoft.Playwright;
 
+// AicCourseRegister.exe csv_file_path parent_name skip_counter
+
 if (args.Length == 0)
 {
 	Console.WriteLine("Please provide input CSV file");
 	return;
 }
 
+var parentName = args.Length > 1 ? args[1] : "";
 var csvFilePath = args[0];
+
 if (!File.Exists(csvFilePath))
 {
 	Console.WriteLine("Invalid CSV file path");
@@ -18,7 +22,7 @@ if (!File.Exists(csvFilePath))
 
 using var reader = new StreamReader(csvFilePath);
 using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-var students = csv.GetRecords<Student>();
+var students = csv.GetRecords<Student>().ToList();
 
 if (!students.Any())
 {
@@ -26,7 +30,7 @@ if (!students.Any())
 	return;
 }
 
-if (args.Length > 1 && int.TryParse(args[1], out var skip))
+if (args.Length > 2 && int.TryParse(args[2], out var skip))
 {
 	students = students.Skip(skip).ToList();
 }
@@ -51,8 +55,9 @@ var page = await browser.NewPageAsync();
 
 foreach (var student in students)
 {
-	await page.GotoAsync("http://aic.dlu.edu.vn/vi/register-courses.html");
+	await page.GotoAsync("registration page url");
 
+	await page.FillAsync("#register-courses-full-name-parent-input", parentName);
 	await page.FillAsync("#register-courses-email-input", student.Email);
 	await page.FillAsync("#register-courses-phone-input", student.Phone);
 	await page.FillAsync("#register-courses-full-name-input-hv-0", student.FullName);

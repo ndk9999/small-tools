@@ -2,7 +2,7 @@
   "profiles": {
     "AicCourseRegister": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Users\\Phuc Nguyen\\Downloads\\Spreadsheets\\hoc_vien.csv\""
+      "commandLineArgs": "\"C:\\Users\\Phuc Nguyen\\Downloads\\Spreadsheets\\hoc_vien_02.csv\" \"Trung tâm kết nối DVVL\""
     }
   }
 }
