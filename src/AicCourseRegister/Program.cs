@@ -52,9 +52,13 @@ browser.SetDefaultTimeout(90000);
 browser.SetDefaultNavigationTimeout(90000);
 
 var page = await browser.NewPageAsync();
+var counter = 1;
 
 foreach (var student in students)
 {
+	Console.WriteLine("{0}. {1}", counter, student.FullName);
+	counter++;
+
 	await page.GotoAsync("registration page url");
 
 	await page.FillAsync("#register-courses-full-name-parent-input", parentName);
@@ -74,5 +78,5 @@ foreach (var student in students)
 	await page.EvaluateAsync("([ns]) => document.getElementById('register-courses-date-input-hv-0').value = ns;", new[] {dob.ToString("yyyy-MM-dd")});
 
 	await page.ClickAsync("#submit-register-courses");
-	await Task.Delay(2000);
+	await Task.Delay(5000);
 }
